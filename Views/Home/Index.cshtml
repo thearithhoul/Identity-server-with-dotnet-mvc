@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="p-4 bg-light rounded-3">
+    <h1 class="display-6">IdentityServer Admin</h1>
+    <p class="lead mb-0">
+        Use the admin area to seed OpenIddict clients and manage test settings.
+    </p>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Admin Home</h5>
+                <p class="card-text">Access the admin dashboard and tools.</p>
+                <a class="btn btn-primary" asp-controller="Admin" asp-action="Index">Open Admin</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Seed Clients</h5>
+                <p class="card-text">Create OpenIddict client records for testing.</p>
+                <a class="btn btn-outline-primary" asp-controller="Clients" asp-action="Index">Seed Client</a>
+            </div>
+        </div>
+    </div>
+</div>
