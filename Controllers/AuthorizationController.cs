@@ -5,14 +5,25 @@ using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
 using static OpenIddict.Abstractions.OpenIddictConstants;
+using IdentityServer.API;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace IdentityServer.Controllers;
 
 public class AuthorizationController : Controller
 {
+    private readonly IdpContext _idpContext;
+
+    public AuthorizationController(
+        IdpContext idpContext)
+    {
+        _idpContext = idpContext;
+    }
+
     [HttpGet("/connect/authorize")]
     [HttpPost("/connect/authorize")]
-    public IActionResult Authorize()
+    public async Task<IActionResult> Authorize()
     {
         var request = HttpContext.GetOpenIddictServerRequest()
             ?? throw new InvalidOperationException("The OpenID Connect request cannot be retrieved.");
@@ -24,19 +35,34 @@ public class AuthorizationController : Controller
             return Challenge(new AuthenticationProperties { RedirectUri = returnUrl });
         }
 
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+        var subject = User.FindFirstValue(ClaimTypes.NameIdentifier)
              ?? user.Name
              ?? throw new InvalidOperationException("No user id.");
 
         var email = User.FindFirstValue(ClaimTypes.Email) ?? string.Empty;
 
+        var appUser = await _idpContext.Users
+                 .FirstOrDefaultAsync(u => u.UserId.ToString() == subject);
+
+        if (appUser == null || !appUser.IsActive)
+        {
+            return Forbid(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+        }
+
+        // var claims = new List<Claim>
+        // {
+        //     new Claim(Claims.Subject, appUser.UserId ?? ),
+        //     new Claim(Claims.Name, user?.Name ?? userId),
+        //     new Claim(Claims.Email, email)
+        // };
+
         var claims = new List<Claim>
         {
-            new Claim(Claims.Subject, userId),
-            new Claim(Claims.Name, user?.Name ?? userId),
-            new Claim(Claims.Email, email)
+            new Claim(Claims.Subject, appUser.UserId.ToString()),
+            new Claim(Claims.Name, appUser.Username),
+            new Claim(Claims.Email, appUser.Email),
+            new Claim(Claims.Role, appUser.Role)
         };
-
         var principal = new ClaimsPrincipal(
             new ClaimsIdentity(claims, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme));
 

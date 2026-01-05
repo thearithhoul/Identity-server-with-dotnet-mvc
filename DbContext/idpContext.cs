@@ -5,9 +5,9 @@ namespace IdentityServer.API
 {
     public class IdpContext : DbContext
     {
-        public IdpContext(DbContextOptions options) :base(options)
+        public IdpContext(DbContextOptions options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -16,8 +16,6 @@ namespace IdentityServer.API
 
             modelBuilder.UseOpenIddict();
         }
-
         public DbSet<User> Users { get; set; }
     }
-
 }

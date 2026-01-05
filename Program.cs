@@ -1,4 +1,6 @@
 using IdentityServer.API;
+using IdentityServer.Interface;
+using IdentityServer.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +21,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 builder.Services.AddAuthorization();
+builder.Services.AddScoped<ICustomerIdentityProvider, CustomerIdentityProvider>();
 
 builder.Services.AddOpenIddict().AddCore(
     options=>

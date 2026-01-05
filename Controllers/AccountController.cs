@@ -15,15 +15,13 @@ namespace IdentityServer.Controllers;
 public class AccountController : Controller
 {
     private readonly IdpContext _idpContext;
-    
 
-    public AccountController( IdpContext idpContext)
+    public AccountController(IdpContext idpContext)
     {
         _idpContext = idpContext;
     }
 
-    
-    [AllowAnonymous]   
+    [AllowAnonymous]
     [HttpGet]
     public IActionResult Login(string? returnUrl = null)
     {
@@ -43,6 +41,7 @@ public class AccountController : Controller
         var user = await _idpContext.Users
             .FirstOrDefaultAsync(u => u.Username == model.Username);
 
+
         if (user == null)
         {
             ModelState.AddModelError(string.Empty, "Invalid username or password.");
@@ -56,8 +55,8 @@ public class AccountController : Controller
             return View(model);
         }
 
-        var claims = new[] 
-        { 
+        var claims = new[]
+        {
             new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
             new Claim(ClaimTypes.Name, model.Username),
             new Claim(ClaimTypes.Email, user.Email),

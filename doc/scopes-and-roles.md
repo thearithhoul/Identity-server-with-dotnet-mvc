@@ -11,6 +11,12 @@ Examples:
 - `email`: email claim
 - `api`: access to your API
 
+### Scope details in this project
+- `openid`: The OpenID Connect scope. If this is missing, OpenIddict will not issue an ID token. It is the signal that this is an OIDC login, not just OAuth.
+- `profile`: Requests basic user profile claims. In this codebase it controls whether the `name` claim is included in the ID token.
+- `email`: Requests the `email` claim. In this codebase it controls whether the `email` claim is included in the ID token.
+- `api`: Custom scope for your protected API. When present, the server marks the access token for the `api` resource so the API can accept it.
+
 Where scopes are used:
 - Requested by the client in `/connect/authorize`
 - Validated by the server (OpenIddict)

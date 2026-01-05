@@ -1,0 +1,39 @@
+# Build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.csproj.user
+
+# IDEs/editors
+.vs/
+.vscode/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# EF and tooling artifacts
+*.sqlite
+*.db
+
+# Docker/compose local overrides
+docker-compose.override.yml
+
+# Rider
+.idea/
+
+# Coverage reports
+coverage/
+TestResults/
+
+# App settings (contains secrets)
+appsettings.*.json
+appsettings.json
