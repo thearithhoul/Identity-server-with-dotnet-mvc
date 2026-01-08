@@ -6,7 +6,7 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace IdentityServer.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 [Route("admin/clients")]
 public class ClientsController : Controller
 {
@@ -23,14 +23,14 @@ public class ClientsController : Controller
         var model = new SeedClientViewModel
         {
             Scopes = "openid profile email api"
-        };        
+        };
         return View(model);
     }
 
 
     [HttpPost("seed")]
     [ValidateAntiForgeryToken]
-    
+
     public async Task<IActionResult> Seed(SeedClientViewModel model)
     {
         if (!ModelState.IsValid)
@@ -45,9 +45,11 @@ public class ClientsController : Controller
             return View("Index", model);
         }
 
-        if (!Uri.TryCreate(model.RedirectUri, UriKind.Absolute, out var redirectUri))
+        var redirectUriValue = model.RedirectUri?.Trim();
+        if (!Uri.TryCreate(redirectUriValue, UriKind.Absolute, out var redirectUri) ||
+            (redirectUri.Scheme != Uri.UriSchemeHttp && redirectUri.Scheme != Uri.UriSchemeHttps))
         {
-            ModelState.AddModelError(nameof(model.RedirectUri), "Redirect URI must be an absolute URL.");
+            ModelState.AddModelError(nameof(model.RedirectUri), "Redirect URI must be an absolute http/https URL.");
             return View("Index", model);
         }
 
@@ -83,6 +85,7 @@ public class ClientsController : Controller
             descriptor.PostLogoutRedirectUris.Add(postLogoutUri);
         }
 
+
         descriptor.Permissions.Add(Permissions.Endpoints.Authorization);
         descriptor.Permissions.Add(Permissions.Endpoints.Token);
         descriptor.Permissions.Add(Permissions.GrantTypes.AuthorizationCode);
@@ -92,9 +95,7 @@ public class ClientsController : Controller
         {
             switch (scope)
             {
-                // case "openid":
-                //     descriptor.Permissions.Add(Permissions.Scopes.OpenId);
-                //     break;
+
                 case "profile":
                     descriptor.Permissions.Add(Permissions.Scopes.Profile);
                     break;

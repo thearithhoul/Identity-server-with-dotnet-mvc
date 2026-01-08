@@ -12,10 +12,10 @@ public class SeedClientViewModel
     public string? DisplayName { get; set; }
 
     [Required]
-    [Url]
+    [RegularExpression(@"^https?://\S+$", ErrorMessage = "Redirect URI must be an absolute http/https URL.")]
     public string RedirectUri { get; set; } = string.Empty;
 
-    [Url]
+    [RegularExpression(@"^https?://\S+$", ErrorMessage = "Post logout redirect URI must be an absolute http/https URL.")]
     public string? PostLogoutRedirectUri { get; set; }
 
     public string? Scopes { get; set; }

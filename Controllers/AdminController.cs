@@ -1,6 +1,10 @@
+using IdentityServer.API;
+using IdentityServer.Entities;
 using IdentityServer.Interface;
 using IdentityServer.Models;
+using IdentityServer.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityServer.Controllers;
@@ -10,10 +14,18 @@ namespace IdentityServer.Controllers;
 public class AdminController : Controller
 {
     private readonly ICustomerIdentityProvider _identityProvider;
+    private readonly IPasswordHasher<User> _passwordHasher;
+    public readonly IUserRepository _userRespository;
 
-    public AdminController(ICustomerIdentityProvider identityProvider)
+
+    public AdminController(
+        ICustomerIdentityProvider identityProvider,
+        IUserRepository userRepository,
+        IPasswordHasher<User> passwordHasher)
     {
         _identityProvider = identityProvider;
+        _userRespository = userRepository;
+        _passwordHasher = passwordHasher;
     }
 
     [HttpGet("")]
@@ -38,8 +50,22 @@ public class AdminController : Controller
                 return Forbid();
             }
 
+            if (string.IsNullOrWhiteSpace(user.EncryptedPassword))
+            {
+                return BadRequest("Password is required.");
+            }
 
-            return Ok();
+            var convert = new User()
+            {
+                Username = user.Username,
+                Email = user.Email,
+                Role = user.Role,
+            };
+            convert.EncryptedPassword = _passwordHasher.HashPassword(convert, user.EncryptedPassword);
+
+            await _userRespository.AddNewUser(convert);
+
+            return Ok("Add Success");
         }
         catch (System.Exception)
         {

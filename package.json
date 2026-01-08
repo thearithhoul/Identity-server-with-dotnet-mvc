@@ -1,0 +1,27 @@
+{
+  "name": "identity-server-with-dotnet-mvc",
+  "version": "1.0.0",
+  "main": "postcss.config.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css": "npx tailwindcss -i ./wwwroot/css/tailwind.input.css -o ./wwwroot/css/tailwind.css -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thearithhoul/Identity-server-with-dotnet-mvc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thearithhoul/Identity-server-with-dotnet-mvc/issues"
+  },
+  "homepage": "https://github.com/thearithhoul/Identity-server-with-dotnet-mvc#readme",
+  "devDependencies": {
+    "tailwindcss": "^4.1.18"
+  },
+  "description": ""
+}

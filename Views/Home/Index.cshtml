@@ -2,30 +2,112 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="p-4 bg-light rounded-3">
-    <h1 class="display-6">IdentityServer Admin</h1>
-    <p class="lead mb-0">
-        Use the admin area to seed OpenIddict clients and manage test settings.
-    </p>
-</div>
+<div class="">
+    @* Header *@
+    @* <header class="flex justify-end w-full px-10 py-10 bg-[#025471]
+               shadow-[0_6px_12px_rgba(0,0,0,0.25)]">
+        <a href="#" class="text-white font-medium">Logout</a>
+    </header> *@
 
-<div class="row mt-4">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Admin Home</h5>
-                <p class="card-text">Access the admin dashboard and tools.</p>
-                <a class="btn btn-primary" asp-controller="Admin" asp-action="Index">Open Admin</a>
+    @* Main *@
+    <main class="bg-app flex flex-col justify-center pb-5">
+        @* Logout *@
+        <div class="inline-flex absolute top-6 right-6 ml-3 rounded-md shadow">
+            <div
+                class="inline-flex items-center justify-center p-[15px] border border-transparent text-base rounded-md hover:bg-sky-700 bg-white ">
+                <a href="/connect/logout" class="no-underline flex items-center gap-2 font-mkBold text-[#025471]">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width: 20px; height: 20px;">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9">
+                        </path>
+                    </svg>
+                    <span>Logout</span>
+                </a>
             </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Seed Clients</h5>
-                <p class="card-text">Create OpenIddict client records for testing.</p>
-                <a class="btn btn-outline-primary" asp-controller="Clients" asp-action="Index">Seed Client</a>
+
+        <div class="w-full flex items-center flex-col space-y-10">
+            <div class="flex flex-col items-center font-mkBold text-white text-center uppercase space-y-[10px]">
+                <h1 class="text-[40px]">Welcom</h1>
+                <h1 class="text-[33px]">LY HOUR DEVELOPMENT VIMEANPHNOMPENH</h1>
+            </div>
+            <div class="border border-[#93a9b3] rounded-3xl p-10 relative">
+                <div class="w-[900px]  rounded-lg">
+                    @*  *@
+                    <div class="grid grid-cols-3 gap-10">
+                        @* Ar system *@
+                        <div class="">
+                            <a class="bg-[#E2B124] py-3 px-2 flex justify-between items-center  no-underline text-white hover:bg-[#2b6d8a] hover:border-white hover:border-2 focus:ring-4 focus:outline-none focus:ring-secondary/50 font-medium rounded-[20px] border"
+                                asp-action="RedirectLink" asp-route-id="arSystem">
+                                <img src="/assets/images/money-collect.png" class=" w-[40%]" alt="">
+                                <div
+                                    class="text-center text-[30px] mb-2 font-normal text-white self-end leading-[1.2] pb-2">
+                                    AR & Sale
+                                </div>
+                            </a>
+                        </div>
+                        @* Ap system *@
+                        <div class="">
+                            <a class="bg-[#E2B124] py-3 px-2 flex justify-between items-center  no-underline text-white hover:bg-[#2b6d8a] hover:border-white hover:border-2 focus:ring-4 focus:outline-none focus:ring-secondary/50 font-medium rounded-[20px] border"
+                                asp-action="RedirectLink" asp-route-id="financeSystem">
+                                <img src="/assets/images/give-money.png" class=" w-[40%]" alt="">
+                                <div
+                                    class="text-center text-[30px] mb-2 font-normal text-white self-end leading-[1.2] pb-2">
+                                    Finance</div>
+                            </a>
+                        </div>
+
+                        @* Stock system *@
+                        <div class="">
+                            <a class="bg-[#E2B124] py-3 px-2 flex justify-between items-center  no-underline text-white hover:bg-[#2b6d8a] hover:border-white hover:border-2 focus:ring-4 focus:outline-none focus:ring-secondary/50 font-medium rounded-[20px] border"
+                                asp-action="RedirectLink" asp-route-id="stockSystem">
+                                <img src="/assets/images/stock.png" class=" w-[40%]" alt="">
+                                <div class="font-normal text-[30px] text-white self-end leading-[1.2] pb-2">Stock</div>
+                            </a>
+                        </div>
+                        @* Po system *@
+                        <div class="">
+                            <a class="bg-[#E2B124] py-3 px-2 flex justify-between items-center  no-underline text-white hover:bg-[#2b6d8a] hover:border-white hover:border-2 focus:ring-4 focus:outline-none focus:ring-secondary/50 font-medium rounded-[20px] border"
+                                asp-action="RedirectLink" asp-route-id="poSystem">
+                                <img src="/assets/images/purchase.png" class=" w-[40%]" alt="">
+                                <div class="font-normal text-[30px] text-white self-end leading-[1.2]  pb-2">Po</div>
+                            </a>
+                        </div>
+                        @* Arch system *@
+                        <div class="">
+                            <a class="bg-[#E2B124] py-3 px-2 flex justify-between items-center  no-underline text-white hover:bg-[#2b6d8a] hover:border-white hover:border-2 focus:ring-4 focus:outline-none focus:ring-secondary/50 font-medium rounded-[20px] border"
+                                asp-action="RedirectLink" asp-route-id="archSystem">
+                                <img src="/assets/images/arch.png" class=" w-[40%]" alt="">
+                                <div class="font-normal text-[30px] text-white self-end leading-[1.2] pb-2">Arch</div>
+                            </a>
+                        </div>
+
+                        @* HR & Admin system *@
+                        <div class="">
+                            <a class="bg-[#E2B124] py-3 px-2 flex justify-between items-center  no-underline text-white hover:bg-[#2b6d8a] hover:border-white hover:border-2 focus:ring-4 focus:outline-none focus:ring-secondary/50 font-medium rounded-[20px] border"
+                                asp-action="RedirectLink" asp-route-id="hrSystem">
+                                <img src="http://apps.vmpp.com/assets/icon/fb3f8c45-3eeb-4dab-b237-3a8e7265ce44.png"
+                                    class=" w-[40%]" alt="">
+                                <div class="font-normal text-[30px] text-white self-end text-end leading-[1.2] pb-2">HR
+                                    &
+                                    Admin</div>
+                            </a>
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+        <footer class="flex justify-center pt-4 text-white text-center">
+            <p>@@2022 By LY HOUR DEVELOPMENT VIMEANPHNOMPENH <br> Business support team on system development &
+                management.All
+                Rights Reserved.</p>
+        </footer>
+
+    </main>
+
+
+
 </div>

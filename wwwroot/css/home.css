@@ -1,0 +1,6 @@
+.bg-app {
+    background: url("/assets/images/bg-ss.svg") right center no-repeat #025471;
+    background-size: 96%;
+    height: 100vh;
+    background-position-y: 112px
+}
