@@ -19,7 +19,6 @@ namespace IdentityServer.Controllers;
 
 public class AccountController : Controller
 {
-    private readonly IStringLocalizer<AccountController> _localizer;
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher<User> _passwordHasher;
 

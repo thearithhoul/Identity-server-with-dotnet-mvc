@@ -32,7 +32,7 @@ public class HomeController : Controller
                 url = _config["appinfo:ArSystem"];
                 break;
             case "financeSystem":
-                url = "#";
+                url = _config["appinfo:ApSystem"];
                 break;
             case "stockSystem":
                 url = "#";
